@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView
+  xmlns="http://xamarin.com/schemas/2014/forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:effect="clr-namespace:BridgeInvoicing.Effects"
+  x:Class="BridgeInvoicing.Controls.StudentPicker">
+  <ContentView.Content>
+    <StackLayout>
+      <Label Text="Student Name"
+             Font="Large"
+             HorizontalOptions="Center"
+             VerticalOptions="CenterAndExpand" />
+      <Entry x:Name="StudentName"
+             TextChanged="OnTextChanged">
+        <Entry.Effects>
+          <effect:ClearEntryEffect />
+        </Entry.Effects>
+      </Entry>
+      <ListView x:Name="StudentOptions"
+                ItemSelected="OnStudentSelected">
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+              <Label Text="{Binding Name}" FontAttributes="Bold" />
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+    </StackLayout>
+  </ContentView.Content>
+</ContentView>

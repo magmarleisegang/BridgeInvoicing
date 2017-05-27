@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:control="clr-namespace:BridgeInvoicing.Controls"
+             x:Class="BridgeInvoicing.Views.ListSessions">
+  <StackLayout>
+    <control:StudentPicker x:Name="StudentFilter" />
+    <Button x:Name="LoadButton" Text="Load" Clicked="OnLoadClicked" />
+    <ListView x:Name="SessionsList">
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ViewCell>
+            <Grid>
+              <Label Grid.Column="1" Text="{Binding StudentId}" />
+              <Label Grid.Column="2" Text="{Binding Horse}"/>
+              <Label Grid.Column="3" Text="{Binding Date}" />
+              <Label Grid.Column="4" Text="{Binding Price}" />    
+            </Grid>
+          </ViewCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+  </StackLayout>
+</ContentPage>

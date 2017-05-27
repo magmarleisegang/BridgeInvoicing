@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:control="clr-namespace:BridgeInvoicing.Controls"
+             x:Class="BridgeInvoicing.Views.AddSession">
+  <StackLayout>
+    <control:StudentPicker x:Name="StudentOptions" OnSelected="OnStudentSelected" />
+    <Label Text="Student Email"
+           Font="Large"
+           HorizontalOptions="Center"
+           VerticalOptions="CenterAndExpand" />
+    <Entry x:Name="StudentEmail" />
+    <Label Text="Student Phone"
+           Font="Large"
+           HorizontalOptions="Center"
+           VerticalOptions="CenterAndExpand" />
+    <Entry x:Name="StudentPhone" />
+    <Label Text="Horse Name"
+           Font="Large"
+           HorizontalOptions="Center"
+           VerticalOptions="CenterAndExpand" />
+    <Entry x:Name="HorseName"
+           TextChanged="OnHorseTextChanged"/>
+    <ListView x:Name="HorseOptions"
+           ItemSelected="OnHorseSelected">
+    </ListView>
+    <Label Text="Date &amp; Time"
+           Font="Large"
+           HorizontalOptions="Center"
+           VerticalOptions="CenterAndExpand" />
+    <DatePicker x:Name="Date"
+                Format="yyyy-MM-dd"/>
+    <TimePicker x:Name="Time" 
+                Format="HH:mm"/>
+    <Label Text="Charge"
+           Font="Large"
+           HorizontalOptions="Center"
+           VerticalOptions="CenterAndExpand" />
+    <Entry x:Name="Charge" />
+    <Button Text="AddSession"
+            HorizontalOptions="Center"
+            VerticalOptions="CenterAndExpand" 
+            Clicked="OnAddSessionClicked"/>
+  </StackLayout>
+</ContentPage>
