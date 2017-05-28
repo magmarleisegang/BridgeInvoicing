@@ -14,7 +14,7 @@
         <DataTemplate>
           <ViewCell>
             <Grid>
-              <Label Grid.Column="1" Text="{Binding Horse}"/>
+              <Label Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Horse}"/>
               <Label Grid.Column="2" Text="{Binding Date}" />
               <Label Grid.Column="3" Text="{Binding Price}" />    
             </Grid>

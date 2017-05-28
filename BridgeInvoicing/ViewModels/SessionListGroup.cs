@@ -12,10 +12,10 @@ namespace BridgeInvoicing.ViewModels
         public string Title { get; set; }
         public string ShortName { get; set; } //will be used for jump lists
         public string Subtitle { get; set; }
-        public SessionListGroup(IGrouping<int,Session> sessions)
+        public SessionListGroup(Student student, List<Session> sessions)
         {
-            Title = sessions.Key.ToString();
-            ShortName = sessions.Key.ToString();
+            Title = student.Name;
+            ShortName = student.Name;
 
             var list = sessions.ToList();
             list.Sort(new SessionDateComparer());

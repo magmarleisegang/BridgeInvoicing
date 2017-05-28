@@ -29,14 +29,15 @@ namespace BridgeInvoicing.Views
         async Task LoadList()
         {
             sessionListCollection.Clear();
-            var student = StudentFilter.SelectedStudentId;
-            var list = await App.Database.GetAllSessions(new DateTime(2017, 01, 01), DateTime.Now, student);
+            var studentId = StudentFilter.SelectedStudentId;
+            var list = await App.Database.GetAllSessions(new DateTime(2017, 01, 01), DateTime.Now, studentId);
             if (list != null)
             {
                 var grouped = list.GroupBy<Session, int>(x =>  x.StudentId);
                 foreach (var studentList in grouped)
                 {
-                    sessionListCollection.Add(new SessionListGroup(studentList));
+                    var student = await App.Database.GetStudentById(studentList.Key);
+                    sessionListCollection.Add(new SessionListGroup(student, studentList.ToList()));
                 }               
             }
             return;
