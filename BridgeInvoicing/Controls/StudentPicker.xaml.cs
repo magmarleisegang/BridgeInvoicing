@@ -21,6 +21,7 @@ namespace BridgeInvoicing.Controls
             StudentOptions.ItemsSource = studentCollection;
             StudentOptions.IsVisible = false;
             VerticalOptions = LayoutOptions.FillAndExpand;
+            StudentOptions.ItemSelected += OnStudentSelected;
         }
 
         public Student SelectedItem
@@ -90,10 +91,12 @@ namespace BridgeInvoicing.Controls
 
         private void ClearStudentCollection()
         {
+            StudentOptions.ItemSelected -= OnStudentSelected;
             studentCollection.Clear();
             studentSelected = false;
             StudentOptions.SelectedItem = null;
             StudentOptions.IsVisible = false;
+            StudentOptions.ItemSelected += OnStudentSelected;
         }
     }
 }

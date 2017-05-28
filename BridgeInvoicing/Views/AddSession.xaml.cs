@@ -96,6 +96,10 @@ namespace BridgeInvoicing.Views
             else
             {
                 student = (Student)StudentOptions.SelectedItem;
+                if (!student.Email.Equals(StudentEmail.Text, StringComparison.CurrentCultureIgnoreCase))
+                    student.Email = StudentEmail.Text;
+                if (!student.Phone.Equals(StudentPhone.Text, StringComparison.CurrentCultureIgnoreCase))
+                    student.Phone = StudentPhone.Text;
             }
             return student;
         }
@@ -111,7 +115,6 @@ namespace BridgeInvoicing.Views
             HorseName.TextChanged -= OnHorseTextChanged;
             HorseName.Text = string.Empty;
             HorseName.TextChanged += OnHorseTextChanged;
-            StudentOptions.IsVisible = false;
             HorseOptions.IsVisible = false;
             Date.Date = System.DateTime.Now;
             Time.Time = System.DateTime.Now.TimeOfDay;

@@ -16,8 +16,7 @@
           <effect:ClearEntryEffect />
         </Entry.Effects>
       </Entry>
-      <ListView x:Name="StudentOptions"
-                ItemSelected="OnStudentSelected">
+      <ListView x:Name="StudentOptions">
         <ListView.ItemTemplate>
           <DataTemplate>
             <ViewCell>
