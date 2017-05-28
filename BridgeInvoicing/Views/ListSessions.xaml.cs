@@ -1,21 +1,23 @@
 ﻿using BridgeInvoicing.Domain;
+using BridgeInvoicing.ViewModels;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using System.Linq;
 
 namespace BridgeInvoicing.Views
 {
     public partial class ListSessions : ContentPage
     {
-        ObservableCollection<Session> sessionListCollection;
+        ObservableCollection<SessionListGroup> sessionListCollection;
         public ListSessions()
         {
             Title = "View All";
 
             InitializeComponent();
-            sessionListCollection = new ObservableCollection<Session>();
-            SessionsList.ItemsSource = sessionListCollection;            
+            sessionListCollection = new ObservableCollection<SessionListGroup>();
+            SessionsList.ItemsSource = sessionListCollection;
             //ListAll();
         }
 
@@ -23,7 +25,7 @@ namespace BridgeInvoicing.Views
         {
             await LoadList();
         }
-        
+
         async Task LoadList()
         {
             sessionListCollection.Clear();
@@ -31,11 +33,11 @@ namespace BridgeInvoicing.Views
             var list = await App.Database.GetAllSessions(new DateTime(2017, 01, 01), DateTime.Now, student);
             if (list != null)
             {
-                list.Sort(new SessionDateComparer());
-                foreach (var item in list)
+                var grouped = list.GroupBy<Session, int>(x =>  x.StudentId);
+                foreach (var studentList in grouped)
                 {
-                    sessionListCollection.Add(item);
-                }
+                    sessionListCollection.Add(new SessionListGroup(studentList));
+                }               
             }
             return;
         }

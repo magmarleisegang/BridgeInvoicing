@@ -6,15 +6,17 @@
   <StackLayout>
     <control:StudentPicker x:Name="StudentFilter" />
     <Button x:Name="LoadButton" Text="Load" Clicked="OnLoadClicked" />
-    <ListView x:Name="SessionsList">
+    <ListView x:Name="SessionsList"
+        GroupDisplayBinding="{Binding Title}"
+        GroupShortNameBinding="{Binding ShortName}"
+        IsGroupingEnabled="true">>
       <ListView.ItemTemplate>
         <DataTemplate>
           <ViewCell>
             <Grid>
-              <Label Grid.Column="1" Text="{Binding StudentId}" />
-              <Label Grid.Column="2" Text="{Binding Horse}"/>
-              <Label Grid.Column="3" Text="{Binding Date}" />
-              <Label Grid.Column="4" Text="{Binding Price}" />    
+              <Label Grid.Column="1" Text="{Binding Horse}"/>
+              <Label Grid.Column="2" Text="{Binding Date}" />
+              <Label Grid.Column="3" Text="{Binding Price}" />    
             </Grid>
           </ViewCell>
         </DataTemplate>
