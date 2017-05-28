@@ -22,7 +22,7 @@ namespace BridgeUI.Droid.Effects
         private void ConfigureControl()
         {
             EditText editText = ((EditText)Control);
-            editText.SetCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, Resource.Drawable.ic_close_dark, 0);
+            editText.SetCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, global::Android.Resource.Drawable.IcMenuCloseClearCancel, 0);
             editText.SetOnTouchListener(new OnDrawableTouchListener());
         }
     }
