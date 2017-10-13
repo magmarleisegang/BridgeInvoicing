@@ -6,6 +6,7 @@
   <StackLayout>
     <control:StudentPicker x:Name="StudentFilter" />
     <Button x:Name="LoadButton" Text="Load" Clicked="OnLoadClicked" />
+    <Button x:Name="EmailInvoice" Text="Email" Clicked="OnEmailClicked"/>
     <ListView x:Name="SessionsList"
         GroupDisplayBinding="{Binding Title}"
         GroupShortNameBinding="{Binding ShortName}"
