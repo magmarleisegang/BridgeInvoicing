@@ -22,6 +22,12 @@ namespace BridgeInvoicing.Controls
             StudentOptions.IsVisible = false;
             VerticalOptions = LayoutOptions.FillAndExpand;
             StudentOptions.ItemSelected += OnStudentSelected;
+            ClearName.ClearAction += ClearName_ClearAction;
+        }
+
+        private void ClearName_ClearAction(object sender, EventArgs e)
+        {
+            ClearInput();
         }
 
         public Student SelectedItem

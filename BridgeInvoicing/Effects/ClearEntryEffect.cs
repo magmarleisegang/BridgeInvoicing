@@ -9,8 +9,17 @@ namespace BridgeInvoicing.Effects
 {
     public class ClearEntryEffect : RoutingEffect
     {
+        public event EventHandler ClearAction;
         public ClearEntryEffect() : base("Effects.ClearEntryEffect")
         {
+        }
+
+        public void OnClearAction(Element element, EventArgs args)
+        {
+            if (ClearAction != null)
+            {
+                ClearAction.Invoke(element, args);
+            }
         }
     }
 }
