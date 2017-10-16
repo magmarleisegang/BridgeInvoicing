@@ -8,6 +8,12 @@ namespace BridgeInvoicing
 {
     public interface IEmailSender
     {
-        void SendEmail(string toAddress, string subject, string body);
+        void SendEmail(string toAddress, string subject, string body, string attachmentFileName);
+    }
+
+    public interface IFileHelper
+    {
+        string WriteFile(string text, string filename);
+        string GetFile(string filename);
     }
 }

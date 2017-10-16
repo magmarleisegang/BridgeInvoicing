@@ -12,6 +12,9 @@ namespace BridgeInvoicing.Emails
         private string _studentName;
         private string _toEmail;
         private List<Session> _sessions;
+        private decimal? _total;
+        private string _template;
+        private string _invoiceNumber;
 
         public Invoice()
         { }
@@ -26,10 +29,43 @@ namespace BridgeInvoicing.Emails
         public Invoice Sessions(List<Session> sessions)
         {
             this._sessions = sessions;
+            this._total = sessions.Sum(x => x.Price);
             return this;
         }
 
-        public string GetEmail()
+        public Invoice LoadTemplate(string template)
+        {
+            this._template = template;
+            return this;
+        }
+
+        public string BuildHtml()
+        {
+            var itemsStart = _template.IndexOf("<items>");
+            var itemsEnd = _template.IndexOf("</items>") + 8;
+            var date = DateTime.Now.ToString("d MMM yyyy");
+            var htmlHead = _template.Substring(itemsStart - 1)
+                .Replace(InvoiceTemplate.recipientName, _studentName)
+                .Replace(InvoiceTemplate.invoiceNr, _invoiceNumber)
+                .Replace(InvoiceTemplate.invoiceDate, date)
+                .Replace(InvoiceTemplate.amountDue, (_total ?? 0).ToString("#.00"));
+            var itemsTemplate = _template.Substring(itemsStart, itemsEnd - itemsStart);
+            StringBuilder sb = new StringBuilder();
+            foreach (var item in _sessions)
+            {
+                sb.Append(itemsTemplate.Replace("items", "tr")
+                    .Replace(InvoiceTemplate.Item.date, item.Date.ToString("d MMM yyyy HH:mm"))
+                    .Replace(InvoiceTemplate.Item.student, item.Student.Name)
+                    .Replace(InvoiceTemplate.Item.horse, item.Horse)
+                    .Replace(InvoiceTemplate.Item.rate, (item.Price ?? 0).ToString("#.00")));
+            }
+
+            var htmlFoot = _template.Substring(itemsEnd)
+                .Replace(InvoiceTemplate.amountDue, (_total ?? 0).ToString("#.00"));
+
+            return htmlHead + sb.ToString() + htmlFoot;
+        }
+        public string GetHtmlEmail()
         {
             StringBuilder invoicelist = new StringBuilder();
             invoicelist.AppendFormat(@"<html>
@@ -61,6 +97,39 @@ namespace BridgeInvoicing.Emails
 
             invoicelist.Append("<p>Thank you!</p></body></html>");
             return invoicelist.ToString();
+        }
+
+        public string GetPlaintextEmail()
+        {
+            string start = string.Format(@"Dear {0},\n
+\n
+Date\tHorse\tPrice\Comment\n", _studentName);
+            StringBuilder sb = new StringBuilder(start);
+
+            foreach (var item in _sessions)
+            {
+                sb.AppendFormat("{0}\t{1}\t{2}\t{3}\n", item.Date, item.Horse, item.Price, item.Comment);
+            }
+
+            sb.AppendLine("Thanks");
+            return sb.ToString();
+        }
+
+        internal static class InvoiceTemplate
+        {
+            internal const string recipientName = "@recipientName";
+            internal const string invoiceNr = "@invoiceNr";
+            internal const string invoiceDate = "@invoiceDate";
+            internal const string amountDue = "@amountDue";
+
+            internal static class Item
+            {
+                internal const string date = "@date";
+                internal const string student = "@student";
+                internal const string horse = "@horse";
+                internal const string rate = "@rate";
+
+            }
         }
     }
 }

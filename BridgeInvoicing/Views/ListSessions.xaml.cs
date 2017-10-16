@@ -11,6 +11,8 @@ namespace BridgeInvoicing.Views
     public partial class ListSessions : ContentPage
     {
         ObservableCollection<SessionListGroup> sessionListCollection;
+        private const string INVOICE_TEMPLATE_FILE = "invoice.html";
+
         public ListSessions()
         {
             Title = "View All";
@@ -34,10 +36,17 @@ namespace BridgeInvoicing.Views
                 var list = App.Database.GetAllSessions(new DateTime(2017, 01, 01), DateTime.Now, studentId).Result;
                 var student = App.Database.GetStudentById(studentId.Value).Result;
                 var invoiceEmail = new Emails.Invoice();
-                invoiceEmail.To(student);
-                invoiceEmail.Sessions(list);
+                    var fileWriter = DependencyService.Get<IFileHelper>();
+               
+                invoiceEmail
+                        .To(student)
+                        .Sessions(list)
+                        .LoadTemplate(fileWriter.GetFile(INVOICE_TEMPLATE_FILE));
+
                 var emailSender = DependencyService.Get<IEmailSender>();
-                emailSender.SendEmail(student.Email, "test", invoiceEmail.GetEmail());
+
+                var attachment = fileWriter.WriteFile(invoiceEmail.GetHtmlEmail(), "invoice.html");
+                emailSender.SendEmail(student.Email, "test", "test body", attachment);
             }
         }
 
