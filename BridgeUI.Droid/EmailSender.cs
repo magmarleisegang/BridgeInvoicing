@@ -24,10 +24,12 @@ namespace BridgeUI.Driod
                 File fileIn = new File(attachmentFileName);
                 fileIn.SetReadable(true, false);
                 email.PutExtra(Intent.ExtraStream, Android.Net.Uri.FromFile(fileIn));
+                fileIn.DeleteOnExit();
             }
             email.SetType("text/html");
             email.SetFlags(ActivityFlags.NewTask);
-            Android.App.Application.Context.StartActivity(email);
+            
+            Android.App.Application.Context.StartActivity(email);           
         }
     }
 }

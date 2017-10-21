@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using System.Linq;
+using appSettings = BridgeInvoicing.Helpers.Settings;
 
 namespace BridgeInvoicing.Views
 {
@@ -35,18 +36,18 @@ namespace BridgeInvoicing.Views
             {
                 var list = App.Database.GetAllSessions(new DateTime(2017, 01, 01), DateTime.Now, studentId).Result;
                 var student = App.Database.GetStudentById(studentId.Value).Result;
-                var invoiceEmail = new Emails.Invoice();
-                    var fileWriter = DependencyService.Get<IFileHelper>();
-               
+                var invoiceEmail = new Emails.Invoice(string.Format("{0}-{1:MMM-yyyy}", student.Name, DateTime.Now));
+                var fileWriter = DependencyService.Get<IFileHelper>();
+
                 invoiceEmail
                         .To(student)
                         .Sessions(list)
-                        .LoadTemplate(fileWriter.GetFile(INVOICE_TEMPLATE_FILE));
+                        .LoadTemplate(fileWriter.GetFile(appSettings.InvoiceTemplateFile));
 
                 var emailSender = DependencyService.Get<IEmailSender>();
 
-                var attachment = fileWriter.WriteFile(invoiceEmail.GetHtmlEmail(), "invoice.html");
-                emailSender.SendEmail(student.Email, "test", "test body", attachment);
+                var attachmentFileName = fileWriter.WriteFile(invoiceEmail.BuildHtml(), System.IO.Path.Combine(appSettings.TempInvoiceFolder, invoiceEmail.InvoiceNumber + ".html"));
+                emailSender.SendEmail(student.Email, invoiceEmail.InvoiceNumber, "test body", attachmentFileName);
             }
         }
 

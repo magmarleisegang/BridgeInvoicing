@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BridgeInvoicing.Emails
 {
-    internal class Invoice
+    public class Invoice
     {
         private string _studentName;
         private string _toEmail;
@@ -16,8 +16,12 @@ namespace BridgeInvoicing.Emails
         private string _template;
         private string _invoiceNumber;
 
-        public Invoice()
-        { }
+        public string InvoiceNumber { get { return _invoiceNumber; } }
+
+        public Invoice(string invoiceNumber = null)
+        {
+            _invoiceNumber = invoiceNumber;
+        }
 
         public Invoice To(Student student)
         {
@@ -44,7 +48,7 @@ namespace BridgeInvoicing.Emails
             var itemsStart = _template.IndexOf("<items>");
             var itemsEnd = _template.IndexOf("</items>") + 8;
             var date = DateTime.Now.ToString("d MMM yyyy");
-            var htmlHead = _template.Substring(itemsStart - 1)
+            var htmlHead = _template.Substring(0, itemsStart - 1)
                 .Replace(InvoiceTemplate.recipientName, _studentName)
                 .Replace(InvoiceTemplate.invoiceNr, _invoiceNumber)
                 .Replace(InvoiceTemplate.invoiceDate, date)
@@ -53,9 +57,10 @@ namespace BridgeInvoicing.Emails
             StringBuilder sb = new StringBuilder();
             foreach (var item in _sessions)
             {
+                var studentName = item.Student == null ? _studentName : item.Student.Name;
                 sb.Append(itemsTemplate.Replace("items", "tr")
                     .Replace(InvoiceTemplate.Item.date, item.Date.ToString("d MMM yyyy HH:mm"))
-                    .Replace(InvoiceTemplate.Item.student, item.Student.Name)
+                    .Replace(InvoiceTemplate.Item.student, studentName)
                     .Replace(InvoiceTemplate.Item.horse, item.Horse)
                     .Replace(InvoiceTemplate.Item.rate, (item.Price ?? 0).ToString("#.00")));
             }

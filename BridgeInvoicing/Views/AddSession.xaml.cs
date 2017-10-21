@@ -18,7 +18,7 @@ namespace BridgeInvoicing.Views
             Time.Time = System.DateTime.Now.TimeOfDay;
         }
 
-        async void OnStudentSelected(object sender, SelectedItemChangedEventArgs args)
+        void OnStudentSelected(object sender, SelectedItemChangedEventArgs args)
         {
             var student = StudentOptions.SelectedItem;
             SetStudentInput(student);
@@ -48,7 +48,7 @@ namespace BridgeInvoicing.Views
             }
         }
 
-        async void OnHorseSelected(object sender, SelectedItemChangedEventArgs args)
+        void OnHorseSelected(object sender, SelectedItemChangedEventArgs args)
         {
             horseSelected = true;
             HorseName.Text = HorseOptions.SelectedItem.ToString();

@@ -2,4 +2,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="BridgeUI.Droid.BridgeUI.Droid" android:versionCode="1" android:versionName="1.0">
 	<uses-sdk android:minSdkVersion="16" />
 	<application android:label="BridgeUI.Droid"></application>
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 </manifest>
