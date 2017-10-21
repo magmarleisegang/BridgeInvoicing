@@ -72,6 +72,7 @@ namespace BridgeInvoicing.Controls
                     {
                         studentCollection.Add(item);
                     }
+                    StudentOptions.HeightRequest = 20 * options.Count;
                 }
                 StudentOptions.IsVisible = optionsAvailable;
             }            
