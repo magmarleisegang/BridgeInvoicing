@@ -21,7 +21,13 @@ namespace BridgeInvoicing.Views
             InitializeComponent();
             sessionListCollection = new ObservableCollection<SessionListGroup>();
             SessionsList.ItemsSource = sessionListCollection;
+            FromDate.DateSelected += FromDate_DateSelected;
             //ListAll();
+        }
+
+        private void FromDate_DateSelected(object sender, DateChangedEventArgs e)
+        {
+            ToDate.MinimumDate = FromDate.Date;
         }
 
         async void OnLoadClicked(object sender, EventArgs args)
@@ -55,7 +61,7 @@ namespace BridgeInvoicing.Views
         {
             sessionListCollection.Clear();
             var studentId = StudentFilter.SelectedStudentId;
-            var list = await App.Database.GetAllSessions(new DateTime(2017, 01, 01), DateTime.Now, studentId);
+            var list = await App.Database.GetAllSessions(FromDate.Date, ToDate.Date, studentId);
             if (list != null)
             {
                 var grouped = list.GroupBy<Session, int>(x => x.StudentId);
