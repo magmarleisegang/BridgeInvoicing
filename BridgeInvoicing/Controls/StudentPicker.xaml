@@ -8,10 +8,9 @@
     <StackLayout>
       <Label Text="Student Name"
              Font="Large"
-             HorizontalOptions="Center"
-             VerticalOptions="CenterAndExpand" />
+             HorizontalOptions="Center" />
       <Entry x:Name="StudentName"
-             TextChanged="OnTextChanged">
+             TextChanged="OnTextChanged" Placeholder="Student name...">
         <Entry.Effects>
           <effect:ClearEntryEffect x:Name="ClearName" />
         </Entry.Effects>
