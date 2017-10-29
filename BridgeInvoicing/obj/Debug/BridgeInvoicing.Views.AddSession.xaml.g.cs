@@ -40,6 +40,9 @@ namespace BridgeInvoicing.Views {
         private global::Xamarin.Forms.Entry Charge;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
+        private global::Xamarin.Forms.Entry Comment;
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
         private void InitializeComponent() {
             global::Xamarin.Forms.Xaml.Extensions.LoadFromXaml(this, typeof(AddSession));
             StudentOptions = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::BridgeInvoicing.Controls.StudentPicker>(this, "StudentOptions");
@@ -50,6 +53,7 @@ namespace BridgeInvoicing.Views {
             Date = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.DatePicker>(this, "Date");
             Time = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.TimePicker>(this, "Time");
             Charge = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Entry>(this, "Charge");
+            Comment = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Entry>(this, "Comment");
         }
     }
 }

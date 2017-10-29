@@ -4,54 +4,56 @@
              xmlns:control="clr-namespace:BridgeInvoicing.Controls"
              x:Class="BridgeInvoicing.Views.ListSessions"
              xmlns:sys="clr-namespace:System;assembly=mscorlib">
-    <StackLayout>
-         <control:StudentPicker x:Name="StudentFilter" />
+    <ScrollView x:Name="MainScroll">
+        <StackLayout>
+            <control:StudentPicker x:Name="StudentFilter" ShowLabel="False" Padding="0,10,0,0"/>
             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                 <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
                     <Label Text="From" VerticalOptions="Center" XAlign="Center"></Label>
                     <DatePicker x:Name="FromDate" 
-                                HorizontalOptions="CenterAndExpand"
-                                Date="{x:Static sys:DateTime.Now}">
+                            HorizontalOptions="CenterAndExpand"
+                            Date="{x:Static sys:DateTime.Now}">
                         <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
                     </DatePicker>
                 </StackLayout>
                 <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
                     <Label Text="To" VerticalOptions="Center" XAlign="Center"></Label>
                     <DatePicker x:Name="ToDate" 
-                                HorizontalOptions="CenterAndExpand"
-                                Date="{x:Static sys:DateTime.Now}">
+                            HorizontalOptions="CenterAndExpand"
+                            Date="{x:Static sys:DateTime.Now}">
                         <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
                     </DatePicker>
                 </StackLayout>
             </StackLayout>
-           <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                 <Button x:Name="LoadButton" Text="Load" Clicked="OnLoadClicked" HorizontalOptions="FillAndExpand" />
                 <Button x:Name="EmailInvoice" Text="Email" Clicked="OnEmailClicked" HorizontalOptions="FillAndExpand" />
             </StackLayout>
-        <Frame>
-            <ListView x:Name="SessionsList"
+            <Frame Padding="15,5">
+                <control:NestedListView x:Name="SessionsList"
                         GroupDisplayBinding="{Binding Title}"
                         GroupShortNameBinding="{Binding ShortName}"
                         IsGroupingEnabled="true">
-                <ListView.Header>
-                    <Grid HorizontalOptions="FillAndExpand" Padding="10,5,0,5" >
-                        <Label Grid.Column="0" Grid.ColumnSpan="2" Text="Horse" />
-                        <Label Grid.Column="2" Text="Date" FontSize="Small"/>
-                        <Label Grid.Column="3" Text="Rate" FontSize="Small"/>
-                    </Grid>
-                </ListView.Header>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Grid Padding="10,5,0,5">
-                                <Label Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Horse}"/>
-                                <Label Grid.Column="2" Text="{Binding Date}" />
-                                <Label Grid.Column="3" Text="{Binding Price}" />
-                            </Grid>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </Frame>
-    </StackLayout>
+                    <ListView.Header>
+                        <Grid HorizontalOptions="FillAndExpand">
+                            <Label Grid.Column="0" Grid.ColumnSpan="2" Text="Horse" />
+                            <Label Grid.Column="2" Grid.ColumnSpan="2" Text="Date" FontSize="Small"/>
+                            <Label Grid.Column="3" Text="Rate" FontSize="Small" />
+                        </Grid>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Label Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Horse}" VerticalTextAlignment="Center"/>
+                                    <Label Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding Date, StringFormat='{0:yyyy/MM/dd}'}" VerticalTextAlignment="Center"/>
+                                    <Label Grid.Column="3" Text="{Binding Price}" HorizontalTextAlignment="End" VerticalTextAlignment="Center"/>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </control:NestedListView>
+            </Frame>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

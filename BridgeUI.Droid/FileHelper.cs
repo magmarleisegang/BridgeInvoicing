@@ -1,15 +1,16 @@
-﻿using BridgeInvoicing;
+﻿using Android.Content;
+using BridgeInvoicing;
 using BridgeUI.Driod;
 using System.IO;
 using Xamarin.Forms;
 using env = System.Environment;
-using System;
 
 [assembly: Dependency(typeof(FileHelper))]
 namespace BridgeUI.Driod
 {
     public class FileHelper : IFileHelper
     {
+        Context context = Android.App.Application.Context;
         public string GetFile(string filename)
         {
             string fullFilename = GetFullFilePath(filename);
@@ -64,6 +65,19 @@ namespace BridgeUI.Driod
                     File.Delete(fle);
                 }
             }
+        }
+
+        public bool FileExists(string filename)
+        {
+            string fullFilename = GetFullFilePath(filename);
+            return File.Exists(fullFilename);
+        }
+
+        public string CreateTempFile(string filename, string content)
+        {
+            var fullfilepath = System.IO.Path.Combine(context.CacheDir.Path, filename);
+            File.WriteAllText(fullfilepath, content);
+            return fullfilepath;
         }
     }
 }

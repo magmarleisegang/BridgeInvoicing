@@ -1,12 +1,9 @@
-﻿using System;
-//using System.IO;
-using BridgeUI.Droid;
-using BridgeInvoicing;
-using Xamarin.Forms;
-using BridgeUI.Driod;
+﻿using Android.App;
 using Android.Content;
-using Android.Text;
-using Java.IO;
+using BridgeInvoicing;
+using BridgeUI.Driod;
+using BridgeUI.Driod.Helpers;
+using Xamarin.Forms;
 
 [assembly: Dependency(typeof(EmailSender))]
 namespace BridgeUI.Driod
@@ -21,15 +18,17 @@ namespace BridgeUI.Driod
             email.PutExtra(Intent.ExtraText, body);
             if (!string.IsNullOrEmpty(attachmentFileName))
             {
-                File fileIn = new File(attachmentFileName);
-                fileIn.SetReadable(true, false);
-                email.PutExtra(Intent.ExtraStream, Android.Net.Uri.FromFile(fileIn));
-                fileIn.DeleteOnExit();
+                email.PutExtra(Intent.ExtraStream, Android.Net.Uri.Parse("content://" + CachedFileProvider.AUTHORITY + "/" + attachmentFileName));
+
+                //File fileIn = new File(attachmentFileName);
+                //fileIn.SetReadable(true, false);
+                //email.PutExtra(Intent.ExtraStream, Android.Net.Uri.FromFile(fileIn));
+                //fileIn.DeleteOnExit();
             }
             email.SetType("text/html");
             email.SetFlags(ActivityFlags.NewTask);
-            
-            Android.App.Application.Context.StartActivity(email);           
+            ((Activity)Forms.Context).StartActivityForResult(email, 0);
+            //Android.App.Application.Context.StartActivityWithResult(email);           
         }
     }
 }

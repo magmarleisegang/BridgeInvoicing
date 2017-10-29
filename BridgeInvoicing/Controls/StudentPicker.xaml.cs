@@ -25,6 +25,12 @@ namespace BridgeInvoicing.Controls
             ClearName.ClearAction += ClearName_ClearAction;
         }
 
+        public bool ShowLabel
+        {
+            get { return StudentNameLabel.IsVisible; }
+            set { StudentNameLabel.IsVisible = value; }
+        }
+
         private void ClearName_ClearAction(object sender, EventArgs e)
         {
             ClearInput();
@@ -75,7 +81,7 @@ namespace BridgeInvoicing.Controls
                     StudentOptions.HeightRequest = 20 * options.Count;
                 }
                 StudentOptions.IsVisible = optionsAvailable;
-            }            
+            }
         }
 
 

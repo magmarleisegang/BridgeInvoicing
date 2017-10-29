@@ -1,4 +1,5 @@
-﻿using Plugin.FilePicker;
+﻿using BridgeInvoicing.Helpers;
+using Plugin.FilePicker;
 using Plugin.FilePicker.Abstractions;
 using System;
 
@@ -17,21 +18,21 @@ namespace BridgeInvoicing.Views
 
         async void OnUpload(object sender, EventArgs e)
         {
-            //try
-            //{
+
             System.Diagnostics.Debug.WriteLine("file picked");
             FileData filedata = await CrossFilePicker.Current.PickFile();
             // the dataarray of the file will be found in filedata.DataArray 
             // file name will be found in filedata.FileName;
             //etc etc.
-            var fileWriter = DependencyService.Get<IFileHelper>();
-            fileWriter.WriteFile(filedata.DataArray, BridgeInvoicing.Helpers.Settings.InvoiceTemplateFile);
-
-            //}
-            //catch (Exception ex)
-            //{
-            //    ExceptionHandler.ShowException(ex.Message);
-            //}
+            if (filedata != null)
+            {
+                var fileWriter = DependencyService.Get<IFileHelper>();
+                fileWriter.WriteFile(filedata.DataArray, BridgeInvoicing.Helpers.Settings.InvoiceTemplateFile);
+                if (!fileWriter.FileExists(BridgeInvoicing.Helpers.Settings.InvoiceTemplateFile))
+                {
+                    this.LogicErrorAlert("Failed to save invoice template");
+                }
+            }
         }
     }
 }

@@ -77,9 +77,11 @@ namespace BridgeInvoicing.Views
         {
             Session newSession = new Session();
             newSession.Horse = HorseName.Text;
-            if (!string.IsNullOrEmpty(Charge.Text))
-                newSession.Price = decimal.Parse(Charge.Text);
             newSession.Date = Date.Date.Add(Time.Time);
+            if (!string.IsNullOrEmpty(Charge.Text))
+            { newSession.Price = decimal.Parse(Charge.Text); }
+            if (!string.IsNullOrEmpty(Comment.Text))
+            { newSession.Comment = Comment.Text; }
             return newSession;
         }
 
@@ -118,6 +120,8 @@ namespace BridgeInvoicing.Views
             HorseOptions.IsVisible = false;
             Date.Date = System.DateTime.Now;
             Time.Time = System.DateTime.Now.TimeOfDay;
+            Comment.Text = string.Empty;
+            Charge.Text = string.Empty;
         }
 
         private void ClearStudentInput()

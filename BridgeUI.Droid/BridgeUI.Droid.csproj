@@ -152,8 +152,10 @@
     <Compile Include="DbFileHelper.cs" />
     <Compile Include="Effects\ClearEntryEffect.cs" />
     <Compile Include="FileHelper.cs" />
+    <Compile Include="Helpers\CachedFileProvider.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="Renderes\NestedListViewRenderer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

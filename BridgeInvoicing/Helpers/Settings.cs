@@ -22,7 +22,7 @@ namespace BridgeInvoicing.Helpers
 		#region Setting Constants
 
 		private const string invoiceTemplateKey = "settings_invoiceTemplate";
-		private static readonly string invoiceTemplate = string.Empty;
+		private static readonly string invoiceTemplate = "invoice.html";
 
         private const string tempInvoiceFolderKey = "settings_tempInvoiceFolder";
         private static readonly string tempInvoiceFolder = "invoices";

@@ -16,6 +16,9 @@ namespace BridgeInvoicing.Views {
     public partial class ListSessions : global::Xamarin.Forms.ContentPage {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
+        private global::Xamarin.Forms.ScrollView MainScroll;
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
         private global::BridgeInvoicing.Controls.StudentPicker StudentFilter;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
@@ -31,17 +34,18 @@ namespace BridgeInvoicing.Views {
         private global::Xamarin.Forms.Button EmailInvoice;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
-        private global::Xamarin.Forms.ListView SessionsList;
+        private global::BridgeInvoicing.Controls.NestedListView SessionsList;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
         private void InitializeComponent() {
             global::Xamarin.Forms.Xaml.Extensions.LoadFromXaml(this, typeof(ListSessions));
+            MainScroll = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.ScrollView>(this, "MainScroll");
             StudentFilter = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::BridgeInvoicing.Controls.StudentPicker>(this, "StudentFilter");
             FromDate = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.DatePicker>(this, "FromDate");
             ToDate = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.DatePicker>(this, "ToDate");
             LoadButton = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Button>(this, "LoadButton");
             EmailInvoice = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Button>(this, "EmailInvoice");
-            SessionsList = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.ListView>(this, "SessionsList");
+            SessionsList = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::BridgeInvoicing.Controls.NestedListView>(this, "SessionsList");
         }
     }
 }

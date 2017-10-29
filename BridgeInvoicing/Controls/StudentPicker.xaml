@@ -6,7 +6,8 @@
   x:Class="BridgeInvoicing.Controls.StudentPicker">
   <ContentView.Content>
     <StackLayout>
-      <Label Text="Student Name"
+      <Label x:Name="StudentNameLabel"
+             Text="Student Name"
              Font="Large"
              HorizontalOptions="Center" />
       <Entry x:Name="StudentName"

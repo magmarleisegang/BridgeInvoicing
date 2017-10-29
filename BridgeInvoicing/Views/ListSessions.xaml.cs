@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using System.Linq;
 using appSettings = BridgeInvoicing.Helpers.Settings;
+using BridgeInvoicing.Helpers;
 
 namespace BridgeInvoicing.Views
 {
@@ -22,7 +23,6 @@ namespace BridgeInvoicing.Views
             sessionListCollection = new ObservableCollection<SessionListGroup>();
             SessionsList.ItemsSource = sessionListCollection;
             FromDate.DateSelected += FromDate_DateSelected;
-            //ListAll();
         }
 
         private void FromDate_DateSelected(object sender, DateChangedEventArgs e)
@@ -38,30 +38,41 @@ namespace BridgeInvoicing.Views
         void OnEmailClicked(object sender, EventArgs args)
         {
             var studentId = StudentFilter.SelectedStudentId;
-            if (studentId.HasValue)
+            if (!studentId.HasValue)
             {
-                var list = App.Database.GetAllSessions(new DateTime(2017, 01, 01), DateTime.Now, studentId).Result;
-                var student = App.Database.GetStudentById(studentId.Value).Result;
-                var invoiceEmail = new Emails.Invoice(string.Format("{0}-{1:MMM-yyyy}", student.Name, DateTime.Now));
-                var fileWriter = DependencyService.Get<IFileHelper>();
-
-                invoiceEmail
-                        .To(student)
-                        .Sessions(list)
-                        .LoadTemplate(fileWriter.GetFile(appSettings.InvoiceTemplateFile));
-
-                var emailSender = DependencyService.Get<IEmailSender>();
-
-                var attachmentFileName = fileWriter.WriteFile(invoiceEmail.BuildHtml(), System.IO.Path.Combine(appSettings.TempInvoiceFolder, invoiceEmail.InvoiceNumber + ".html"));
-                emailSender.SendEmail(student.Email, invoiceEmail.InvoiceNumber, "test body", attachmentFileName);
+                this.LogicErrorAlert("Please search & select a student");
+                return;
             }
+
+            var fileWriter = DependencyService.Get<IFileHelper>();
+            if (!fileWriter.FileExists(appSettings.InvoiceTemplateFile))
+            {
+                this.LogicErrorAlert("No invoice template available");
+                return;
+            }
+
+            var list = App.Database.GetAllSessions(new DateTime(2017, 01, 01), DateTime.Now, studentId).Result;
+            var student = App.Database.GetStudentById(studentId.Value).Result;
+            var invoiceEmail = new Emails.Invoice(string.Format("{0}-{1:MMM-yyyy}", student.Name, DateTime.Now));
+
+            invoiceEmail
+                    .To(student)
+                    .Sessions(list)
+                    .LoadTemplate(fileWriter.GetFile(appSettings.InvoiceTemplateFile));
+
+            var emailSender = DependencyService.Get<IEmailSender>();
+            var filename = invoiceEmail.InvoiceNumber + ".html";
+            var attachmentFileName = fileWriter.CreateTempFile(invoiceEmail.InvoiceNumber + ".html", invoiceEmail.BuildHtml());
+            emailSender.SendEmail(student.Email, invoiceEmail.InvoiceNumber, "test body", filename);
         }
 
         async Task LoadList()
         {
             sessionListCollection.Clear();
             var studentId = StudentFilter.SelectedStudentId;
-            var list = await App.Database.GetAllSessions(FromDate.Date, ToDate.Date, studentId);
+            var fromDate = FromDate.Date.Date;
+            var toDate = ToDate.Date.Date.AddDays(1);
+            var list = await App.Database.GetAllSessions(fromDate, toDate, studentId);
             if (list != null)
             {
                 var grouped = list.GroupBy<Session, int>(x => x.StudentId);
