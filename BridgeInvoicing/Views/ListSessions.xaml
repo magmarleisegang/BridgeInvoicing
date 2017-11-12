@@ -5,7 +5,7 @@
              x:Class="BridgeInvoicing.Views.ListSessions"
              xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <ScrollView x:Name="MainScroll">
-        <StackLayout>
+        <StackLayout Padding="5">
             <control:StudentPicker x:Name="StudentFilter" ShowLabel="False" Padding="0,10,0,0"/>
             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                 <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
@@ -30,17 +30,25 @@
                 <Button x:Name="EmailInvoice" Text="Email" Clicked="OnEmailClicked" HorizontalOptions="FillAndExpand" />
             </StackLayout>
             <Frame Padding="15,5">
-                <control:NestedListView x:Name="SessionsList"
-                        GroupDisplayBinding="{Binding Title}"
-                        GroupShortNameBinding="{Binding ShortName}"
+                <control:NestedListView x:Name="SessionsList"                                        
                         IsGroupingEnabled="true">
                     <ListView.Header>
-                        <Grid HorizontalOptions="FillAndExpand">
+                        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand">
                             <Label Grid.Column="0" Grid.ColumnSpan="2" Text="Horse" />
                             <Label Grid.Column="2" Grid.ColumnSpan="2" Text="Date" FontSize="Small"/>
                             <Label Grid.Column="3" Text="Rate" FontSize="Small" />
                         </Grid>
                     </ListView.Header>
+                    <ListView.GroupHeaderTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Label Text="{Binding ShortName}" 
+                                       HorizontalOptions="StartAndExpand" 
+                                       VerticalOptions="EndAndExpand"
+                                       FontAttributes="Bold"/>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.GroupHeaderTemplate>
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
