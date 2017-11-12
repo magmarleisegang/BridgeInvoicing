@@ -32,18 +32,30 @@ namespace BridgeInvoicing.Views
         {
             Student student = GetStudentInput();
             Session newSession = GetSessionInput();
-            newSession.SetStudent(student);
-
-            var resultCode = await App.Database.AddSession(newSession);
-            if (resultCode == 1)
+            if (student.IsValid() && newSession.IsValid())
             {
-                await DisplayAlert("Done!", "Session saved successfully", "Ok, thanks");
-                ClearInput();
+                if (student.IsNew() || student.IsChanged())
+                {
+                   await App.Database.SaveStudent(student);
+                }
+                newSession.SetStudent(student);
+
+                var resultCode = await App.Database.AddSession(newSession);
+                if (resultCode == 1)
+                {
+                    await DisplayAlert("Done!", "Session saved successfully", "Ok, thanks");
+                    ClearInput();
+                }
+                else
+                {
+                    await DisplayAlert("Failed", "Failed to save session", "Argh :(");
+                }
             }
             else
             {
-                await DisplayAlert("Failed", "Failed to save session", "Argh :(");
+                await DisplayAlert("Failed", "Failed to save session. Some inputs are invalid.", "Ok, I'll fix it.");
             }
+
         }
 
         private Session GetSessionInput()
@@ -68,16 +80,17 @@ namespace BridgeInvoicing.Views
             {
                 student = new Student();
                 student.Name = StudentOptions.Text;
-                student.Email = StudentEmail.Text;
-                student.Phone = StudentPhone.Text;
+                student.SetEmail(StudentEmail.Text);
+                student.SetPhone(StudentPhone.Text);
             }
             else
             {
                 student = (Student)StudentOptions.SelectedItem;
                 if (!student.Email.Equals(StudentEmail.Text, StringComparison.CurrentCultureIgnoreCase))
-                    student.Email = StudentEmail.Text;
+                    student.SetEmail(StudentEmail.Text);
+
                 if (!student.Phone.Equals(StudentPhone.Text, StringComparison.CurrentCultureIgnoreCase))
-                    student.Phone = StudentPhone.Text;
+                    student.SetPhone(StudentPhone.Text);
             }
             return student;
         }

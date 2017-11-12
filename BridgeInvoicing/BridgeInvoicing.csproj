@@ -41,9 +41,11 @@
       <DependentUpon>HorsePicker.xaml</DependentUpon>
     </Compile>
     <Compile Include="Data\Database.cs" />
+    <Compile Include="Domain\IValidatable.cs" />
     <Compile Include="Domain\SessionDateComparer.cs" />
     <Compile Include="Effects\ClearEntryEffect.cs" />
     <Compile Include="Emails\Invoice.cs" />
+    <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Helpers\ProgramException.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="IEmailSender.cs" />

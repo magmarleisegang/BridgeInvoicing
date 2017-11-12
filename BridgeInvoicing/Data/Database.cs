@@ -50,12 +50,7 @@ namespace BridgeInvoicing.Data
         }
 
         public async Task<int> AddSession(Session session)
-        {
-            if (session.StudentId == 0)
-            {
-                await _database.InsertAsync(session.Student);
-                session.StudentId = session.Student.Id;
-            }
+        {            
             return await _database.InsertAsync(session);
         }
 
