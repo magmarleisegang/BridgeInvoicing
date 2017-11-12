@@ -37,6 +37,9 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="Controls\NestedListView.cs" />
+    <Compile Include="Controls\HorsePicker.xaml.cs">
+      <DependentUpon>HorsePicker.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Data\Database.cs" />
     <Compile Include="Domain\SessionDateComparer.cs" />
     <Compile Include="Effects\ClearEntryEffect.cs" />
@@ -144,6 +147,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\Settings.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controls\HorsePicker.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

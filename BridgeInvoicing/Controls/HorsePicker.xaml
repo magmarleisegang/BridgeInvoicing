@@ -3,20 +3,21 @@
   xmlns="http://xamarin.com/schemas/2014/forms"
   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
   xmlns:effect="clr-namespace:BridgeInvoicing.Effects"
-  x:Class="BridgeInvoicing.Controls.StudentPicker">
+  x:Class="BridgeInvoicing.Controls.HorsePicker">
     <ContentView.Content>
         <StackLayout>
-            <Label x:Name="StudentNameLabel"
-             Text="Student Name"
+            <Label x:Name="NameLabel"
+             Text="Horse Name"
              Font="Large"
              HorizontalOptions="Center" />
-            <Entry x:Name="StudentName"
-             TextChanged="OnTextChanged" Placeholder="Student name...">
+            <Entry x:Name="Name"
+             TextChanged="OnTextChanged" 
+             Placeholder="Horse name...">
                 <Entry.Effects>
                     <effect:ClearEntryEffect x:Name="ClearName" />
                 </Entry.Effects>
             </Entry>
-            <ListView x:Name="StudentOptions"
+            <ListView x:Name="Options" 
                 RowHeight="40" 
                 VerticalOptions="StartAndExpand"
                 BackgroundColor="LightGray">

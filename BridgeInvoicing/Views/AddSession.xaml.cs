@@ -8,12 +8,10 @@ namespace BridgeInvoicing.Views
 {
     public partial class AddSession : ContentPage
     {
-        private bool horseSelected;
         public AddSession()
         {
             Title = "Add";
             InitializeComponent();
-            HorseOptions.IsVisible = false;
             Date.Date = System.DateTime.Now;
             Time.Time = System.DateTime.Now.TimeOfDay;
         }
@@ -28,31 +26,6 @@ namespace BridgeInvoicing.Views
         {
             StudentEmail.Text = student.Email;
             StudentPhone.Text = student.Phone;
-        }
-
-        async void OnHorseTextChanged(object sender, TextChangedEventArgs args)
-        {
-            if (horseSelected)
-            {
-                horseSelected = false;
-                return;
-            }
-            Entry horseName = (Entry)sender;
-            if (horseName.Text.Length > 3)
-            {
-                var options = await App.Database.SearchHorseName(horseName.Text);
-                var optionsAvailable = options.Count > 0;
-                if (optionsAvailable)
-                    HorseOptions.ItemsSource = options.Select(x => x.Name);
-                HorseOptions.IsVisible = optionsAvailable;
-            }
-        }
-
-        void OnHorseSelected(object sender, SelectedItemChangedEventArgs args)
-        {
-            horseSelected = true;
-            HorseName.Text = HorseOptions.SelectedItem.ToString();
-            HorseOptions.IsVisible = false;
         }
 
         async void OnAddSessionClicked(object sender, EventArgs args)
@@ -76,12 +49,15 @@ namespace BridgeInvoicing.Views
         private Session GetSessionInput()
         {
             Session newSession = new Session();
-            newSession.Horse = HorseName.Text;
+            newSession.Horse = HorseOptions.Text;
             newSession.Date = Date.Date.Add(Time.Time);
+
             if (!string.IsNullOrEmpty(Charge.Text))
             { newSession.Price = decimal.Parse(Charge.Text); }
+
             if (!string.IsNullOrEmpty(Comment.Text))
             { newSession.Comment = Comment.Text; }
+
             return newSession;
         }
 
@@ -114,10 +90,7 @@ namespace BridgeInvoicing.Views
 
         private void ClearSessionInput()
         {
-            HorseName.TextChanged -= OnHorseTextChanged;
-            HorseName.Text = string.Empty;
-            HorseName.TextChanged += OnHorseTextChanged;
-            HorseOptions.IsVisible = false;
+            HorseOptions.ClearInput();
             Date.Date = System.DateTime.Now;
             Time.Time = System.DateTime.Now.TimeOfDay;
             Comment.Text = string.Empty;

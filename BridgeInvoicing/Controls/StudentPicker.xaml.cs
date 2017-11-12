@@ -23,6 +23,9 @@ namespace BridgeInvoicing.Controls
             VerticalOptions = LayoutOptions.FillAndExpand;
             StudentOptions.ItemSelected += OnStudentSelected;
             ClearName.ClearAction += ClearName_ClearAction;
+            var currentMargin = StudentOptions.Margin;
+            currentMargin.Top = -15;
+            StudentOptions.Margin = currentMargin;
         }
 
         public bool ShowLabel
@@ -78,7 +81,6 @@ namespace BridgeInvoicing.Controls
                     {
                         studentCollection.Add(item);
                     }
-                    StudentOptions.HeightRequest = 20 * options.Count;
                 }
                 StudentOptions.IsVisible = optionsAvailable;
             }

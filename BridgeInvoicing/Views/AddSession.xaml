@@ -4,7 +4,7 @@
              xmlns:control="clr-namespace:BridgeInvoicing.Controls"
              x:Class="BridgeInvoicing.Views.AddSession">
     <ScrollView>
-        <StackLayout>
+        <StackLayout Padding="5">
             <control:StudentPicker x:Name="StudentOptions" OnSelected="OnStudentSelected" />
             <Label Text="Student Email"
                     Font="Large"
@@ -16,12 +16,7 @@
                    HorizontalOptions="Center"
                    VerticalOptions="CenterAndExpand" />
             <Entry x:Name="StudentPhone" />
-            <Label Text="Horse Name"
-                   Font="Large"
-                   HorizontalOptions="Center"
-                   VerticalOptions="CenterAndExpand" />
-            <Entry x:Name="HorseName" TextChanged="OnHorseTextChanged"/>
-            <ListView x:Name="HorseOptions" ItemSelected="OnHorseSelected"></ListView>
+            <control:HorsePicker x:Name="HorseOptions"/>
             <StackLayout Orientation="Horizontal">
                 <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
                     <Label Text="Date"

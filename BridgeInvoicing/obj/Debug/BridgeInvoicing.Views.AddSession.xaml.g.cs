@@ -25,10 +25,7 @@ namespace BridgeInvoicing.Views {
         private global::Xamarin.Forms.Entry StudentPhone;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
-        private global::Xamarin.Forms.Entry HorseName;
-        
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
-        private global::Xamarin.Forms.ListView HorseOptions;
+        private global::BridgeInvoicing.Controls.HorsePicker HorseOptions;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
         private global::Xamarin.Forms.DatePicker Date;
@@ -48,8 +45,7 @@ namespace BridgeInvoicing.Views {
             StudentOptions = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::BridgeInvoicing.Controls.StudentPicker>(this, "StudentOptions");
             StudentEmail = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Entry>(this, "StudentEmail");
             StudentPhone = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Entry>(this, "StudentPhone");
-            HorseName = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Entry>(this, "HorseName");
-            HorseOptions = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.ListView>(this, "HorseOptions");
+            HorseOptions = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::BridgeInvoicing.Controls.HorsePicker>(this, "HorseOptions");
             Date = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.DatePicker>(this, "Date");
             Time = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.TimePicker>(this, "Time");
             Charge = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Entry>(this, "Charge");
