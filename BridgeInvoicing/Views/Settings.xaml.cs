@@ -1,10 +1,12 @@
 ﻿using BridgeInvoicing.Helpers;
+using BridgeInvoicing.ViewModels;
 using Plugin.FilePicker;
 using Plugin.FilePicker.Abstractions;
 using System;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using AppSettings = BridgeInvoicing.Helpers.Settings;
 
 namespace BridgeInvoicing.Views
 {
@@ -14,6 +16,7 @@ namespace BridgeInvoicing.Views
         public Settings()
         {
             InitializeComponent();
+            BindingContext = new SettingsViewModel();
         }
 
         async void OnUpload(object sender, EventArgs e)
@@ -27,12 +30,17 @@ namespace BridgeInvoicing.Views
             if (filedata != null)
             {
                 var fileWriter = DependencyService.Get<IFileHelper>();
-                fileWriter.WriteFile(filedata.DataArray, BridgeInvoicing.Helpers.Settings.InvoiceTemplateFile);
-                if (!fileWriter.FileExists(BridgeInvoicing.Helpers.Settings.InvoiceTemplateFile))
+                fileWriter.WriteFile(filedata.DataArray, AppSettings.InvoiceTemplateFile);
+                if (!fileWriter.FileExists(AppSettings.InvoiceTemplateFile))
                 {
                     this.LogicErrorAlert("Failed to save invoice template");
                 }
             }
+        }
+
+        private void DefaultRate_Completed(object sender, EventArgs e)
+        {
+            
         }
     }
 }

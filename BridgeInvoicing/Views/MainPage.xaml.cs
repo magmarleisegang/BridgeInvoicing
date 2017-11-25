@@ -13,11 +13,16 @@ namespace BridgeInvoicing.Views
         public MainPage()
         {
             Title = "HelloS";
-            Children.Add(new AddSession());
+            Children.Add(new AddSession2());
             Children.Add(new ListSessions());
             Children.Add(new Settings());
-
+            Children[0].Appearing += MainPage_Appearing; ;
             //ClearTempInvoiceFolder();
+        }
+
+        private void MainPage_Appearing(object sender, EventArgs e)
+        {
+            ((AddSession2)sender).ClearInput();
         }
 
         private void ClearTempInvoiceFolder()

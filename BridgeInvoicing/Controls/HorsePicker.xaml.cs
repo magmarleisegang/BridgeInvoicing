@@ -41,19 +41,6 @@ namespace BridgeInvoicing.Controls
             get { return Options.SelectedItem == null ? null : (Horse)Options.SelectedItem; }
             set { Options.SelectedItem = value; }
         }
-        public string Text
-        {
-            get { return Name.Text; }
-            set { Name.Text = value; }
-        }
-
-        //public int? SelectedStudentId
-        //{
-        //    get
-        //    {
-        //        return SelectedItem == null ? (int?)null : SelectedItem.Id;
-        //    }
-        //}
 
         public event EventHandler<SelectedItemChangedEventArgs> OnSelected;
         async void OnTextChanged(object sender, TextChangedEventArgs args)
@@ -74,19 +61,18 @@ namespace BridgeInvoicing.Controls
                 if (optionsAvailable)
                 {
                     horseCollection.Clear();
-                    
+
                     foreach (var item in options)
                     {
                         horseCollection.Add(item);
                     }
                     //Options.HeightRequest = 20 * options.Count;
 
-                
+
                 }
                 Options.IsVisible = optionsAvailable;
             }
         }
-
 
         void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {

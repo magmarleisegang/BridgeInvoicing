@@ -107,7 +107,7 @@ namespace BridgeInvoicing.Views
             Date.Date = System.DateTime.Now;
             Time.Time = System.DateTime.Now.TimeOfDay;
             Comment.Text = string.Empty;
-            Charge.Text = string.Empty;
+            Charge.Text = Helpers.Settings.DefaultRate.ToString();
         }
 
         private void ClearStudentInput()
