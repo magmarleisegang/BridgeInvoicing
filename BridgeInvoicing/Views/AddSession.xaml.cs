@@ -61,7 +61,7 @@ namespace BridgeInvoicing.Views
         private Session GetSessionInput()
         {
             Session newSession = new Session();
-            newSession.Horse = HorseOptions.Text;
+            newSession.Horse = HorseOptions.SelectedItem.Name;
             newSession.Date = Date.Date.Add(Time.Time);
 
             if (!string.IsNullOrEmpty(Charge.Text))

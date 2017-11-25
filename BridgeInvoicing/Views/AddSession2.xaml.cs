@@ -30,23 +30,36 @@ namespace BridgeInvoicing.Views
         {
             Student student = GetStudentInput();
             Session newSession = GetSessionInput();
-            newSession.SetStudent(student);
 
-            var resultCode = await App.Database.AddSession(newSession);
-            if (resultCode == 1)
+            if (student.IsValid() && newSession.IsValid())
             {
-                await DisplayAlert("Done!", "Session saved successfully", "Ok, thanks");
-                ClearInput();
+                if (student.IsNew() || student.IsChanged())
+                {
+                    await App.Database.SaveStudent(student);
+                }
+                newSession.SetStudent(student);
+
+                var resultCode = await App.Database.AddSession(newSession);
+                if (resultCode == 1)
+                {
+                    await DisplayAlert("Done!", "Session saved successfully", "Ok, thanks");
+                    ClearInput();
+                }
+                else
+                {
+                    await DisplayAlert("Failed", "Failed to save session", "Argh :(");
+                }
             }
             else
             {
-                await DisplayAlert("Failed", "Failed to save session", "Argh :(");
+                await DisplayAlert("Failed", "Failed to save session. Some inputs are invalid.", "Ok, I'll fix it.");
             }
         }
 
         private Session GetSessionInput()
         {
             Session newSession = ((AddSessionModel)BindingContext).Session;
+            newSession.Horse = HorseOptions.Text;
             return newSession;
         }
 
@@ -72,7 +85,7 @@ namespace BridgeInvoicing.Views
             StudentOptions.ClearInput();
             HorseOptions.ClearInput();
             BindingContext = new AddSessionModel();
-            
+
 
         }
 

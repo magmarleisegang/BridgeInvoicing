@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using appSettings = BridgeInvoicing.Helpers.Settings;
 using Xamarin.Forms;
+using appSettings = BridgeInvoicing.Helpers.Settings;
 
 namespace BridgeInvoicing.Views
 {
@@ -13,10 +9,19 @@ namespace BridgeInvoicing.Views
         public MainPage()
         {
             Title = "HelloS";
-            Children.Add(new AddSession2());
+            bool user2 = true;
+            if (user2)
+            {
+                Children.Add(new AddSession2());
+                Children[0].Appearing += MainPage_Appearing;
+            }
+            else
+            {
+                Children.Add(new AddSession());
+            }
+
             Children.Add(new ListSessions());
             Children.Add(new Settings());
-            Children[0].Appearing += MainPage_Appearing; ;
             //ClearTempInvoiceFolder();
         }
 
@@ -27,7 +32,7 @@ namespace BridgeInvoicing.Views
 
         private void ClearTempInvoiceFolder()
         {
-                var fileWriter = DependencyService.Get<IFileHelper>();
+            var fileWriter = DependencyService.Get<IFileHelper>();
             fileWriter.ClearFolder(appSettings.TempInvoiceFolder);
         }
     }

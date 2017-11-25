@@ -45,7 +45,8 @@ namespace BridgeInvoicing.Data
 
         public async Task<List<ViewModels.Horse>> SearchHorseName(string name)
         {
-            var results = await _database.QueryAsync<ViewModels.Horse>("select DISTINCT Horse as [Name] from [Session] where Horse like '%' || @name || '%' ORDER BY [Name]", name);
+            var results = await _database.QueryAsync<ViewModels.Horse>(
+                "select DISTINCT Horse as [Name] from [Session] where Horse like '%' || @name || '%' ORDER BY [Name]", name);
             return results;
         }
 
@@ -59,7 +60,6 @@ namespace BridgeInvoicing.Data
             var asyncQueryable = _database.Table<Session>().Where(s => s.Date >= from && s.Date <= to);
             if (studentId.HasValue)
                 asyncQueryable = asyncQueryable.Where(s => s.StudentId == studentId);
-
             return asyncQueryable.ToListAsync();
         }
 

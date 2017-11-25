@@ -42,6 +42,8 @@ namespace BridgeInvoicing.Controls
             set { Options.SelectedItem = value; }
         }
 
+        public string Text { get { return Name.Text; } }
+
         public event EventHandler<SelectedItemChangedEventArgs> OnSelected;
         async void OnTextChanged(object sender, TextChangedEventArgs args)
         {
