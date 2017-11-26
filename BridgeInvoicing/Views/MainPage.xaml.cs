@@ -9,16 +9,9 @@ namespace BridgeInvoicing.Views
         public MainPage()
         {
             Title = "HelloS";
-            bool user2 = true;
-            if (user2)
-            {
-                Children.Add(new AddSession2());
-                Children[0].Appearing += MainPage_Appearing;
-            }
-            else
-            {
-                Children.Add(new AddSession());
-            }
+
+            Children.Add(new AddSession2());
+            Children[0].Appearing += MainPage_Appearing;
 
             Children.Add(new ListSessions());
             Children.Add(new Settings());
