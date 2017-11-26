@@ -39,6 +39,9 @@ namespace BridgeInvoicing.Emails
 
         public Invoice LoadTemplate(string template)
         {
+            if (string.IsNullOrEmpty(template))
+                throw new ArgumentNullException("Template can not be an empty file.");
+
             this._template = template;
             return this;
         }
