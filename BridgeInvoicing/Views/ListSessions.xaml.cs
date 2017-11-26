@@ -65,7 +65,7 @@ namespace BridgeInvoicing.Views
                 var emailSender = DependencyService.Get<IEmailSender>();
                 var filename = invoiceEmail.InvoiceNumber + ".html";
                 var attachmentFileName = fileWriter.CreateTempFile(invoiceEmail.InvoiceNumber + ".html", invoiceEmail.BuildHtml());
-                emailSender.SendEmail(student.Email, invoiceEmail.InvoiceNumber, "test body", filename);
+                emailSender.SendEmail(student.Email, invoiceEmail.InvoiceNumber, appSettings.DefaultInvoiceMessage, filename);
             }
             catch (Exception ex)
             {

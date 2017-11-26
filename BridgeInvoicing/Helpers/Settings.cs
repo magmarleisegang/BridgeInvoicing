@@ -28,6 +28,8 @@ namespace BridgeInvoicing.Helpers
         private static readonly string tempInvoiceFolder = "invoices";
 
         private const string defaultRateKey = "settings_defautrate";
+
+        private const string defaultInvoiceMessageKey = "settings_defaultInvoiceMessage";
         #endregion
 
 
@@ -67,6 +69,18 @@ namespace BridgeInvoicing.Helpers
             set
             {
                 AppSettings.AddOrUpdateValue(defaultRateKey, value.ToString());
+            }
+        }
+
+        public static string DefaultInvoiceMessage
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault(defaultInvoiceMessageKey, null);
+            }
+            set
+            {
+                AppSettings.AddOrUpdateValue(defaultInvoiceMessageKey, value);
             }
         }
     }

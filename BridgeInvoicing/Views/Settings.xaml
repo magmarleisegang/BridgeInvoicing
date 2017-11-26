@@ -14,6 +14,12 @@
             <Entry x:Name="DefaultRate" 
                    Text="{Binding DefaultRate, Mode=TwoWay, Converter={local:DecimalConverter}}}" 
                    Keyboard="Numeric"/>
+            <Label Text="Default Invoice Message"
+                    Font="Large"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Start" />
+            <Entry x:Name="DefaultMessage" 
+                   Text="{Binding DefaultInvoiceMessage, Mode=TwoWay}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -22,5 +22,20 @@ namespace BridgeInvoicing.ViewModels
                 }
             }
         }
+
+        public string DefaultInvoiceMessage
+        {
+            get
+            {
+                return AppSettings.DefaultInvoiceMessage;
+            }
+            set
+            {
+                if (AppSettings.DefaultInvoiceMessage != value)
+                {
+                    AppSettings.DefaultInvoiceMessage = value;
+                }
+            }
+        }
     }
 }
