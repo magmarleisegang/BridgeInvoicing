@@ -15,7 +15,8 @@
                    Font="Large"
                    HorizontalOptions="Center"
                    VerticalOptions="CenterAndExpand" />
-            <Entry x:Name="StudentPhone" />
+            <Entry x:Name="StudentPhone" 
+                   Keyboard="Numeric"/>
             <control:HorsePicker x:Name="HorseOptions"/>
             <StackLayout Orientation="Horizontal">
                 <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
