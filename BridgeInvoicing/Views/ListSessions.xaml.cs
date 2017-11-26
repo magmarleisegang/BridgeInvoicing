@@ -51,19 +51,26 @@ namespace BridgeInvoicing.Views
                 return;
             }
 
-            var list = App.Database.GetAllSessions(new DateTime(2017, 01, 01), DateTime.Now, studentId).Result;
-            var student = App.Database.GetStudentById(studentId.Value).Result;
-            var invoiceEmail = new Emails.Invoice(string.Format("{0}-{1:MMM-yyyy}", student.Name, DateTime.Now));
+            try
+            {
+                var list = App.Database.GetAllSessions(new DateTime(2017, 01, 01), DateTime.Now, studentId).Result;
+                var student = App.Database.GetStudentById(studentId.Value).Result;
+                var invoiceEmail = new Emails.Invoice(string.Format("{0}-{1:MMM-yyyy}", student.Name, DateTime.Now));
 
-            invoiceEmail
-                    .To(student)
-                    .Sessions(list)
-                    .LoadTemplate(fileWriter.GetFile(appSettings.InvoiceTemplateFile));
+                invoiceEmail
+                        .To(student)
+                        .Sessions(list)
+                        .LoadTemplate(fileWriter.GetFile(appSettings.InvoiceTemplateFile));
 
-            var emailSender = DependencyService.Get<IEmailSender>();
-            var filename = invoiceEmail.InvoiceNumber + ".html";
-            var attachmentFileName = fileWriter.CreateTempFile(invoiceEmail.InvoiceNumber + ".html", invoiceEmail.BuildHtml());
-            emailSender.SendEmail(student.Email, invoiceEmail.InvoiceNumber, "test body", filename);
+                var emailSender = DependencyService.Get<IEmailSender>();
+                var filename = invoiceEmail.InvoiceNumber + ".html";
+                var attachmentFileName = fileWriter.CreateTempFile(invoiceEmail.InvoiceNumber + ".html", invoiceEmail.BuildHtml());
+                emailSender.SendEmail(student.Email, invoiceEmail.InvoiceNumber, "test body", filename);
+            }
+            catch (Exception ex)
+            {
+                this.LogicErrorAlert(ex.Message);
+            }
         }
 
         async Task LoadList()

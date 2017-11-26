@@ -30,6 +30,11 @@ namespace BridgeInvoicing.Views
             if (filedata != null)
             {
                 var fileWriter = DependencyService.Get<IFileHelper>();
+                if (filedata.DataArray.Length < 1)
+                {
+                    this.LogicErrorAlert("Could not access template file");
+                    return;
+                }
                 fileWriter.WriteFile(filedata.DataArray, AppSettings.InvoiceTemplateFile);
                 if (!fileWriter.FileExists(AppSettings.InvoiceTemplateFile))
                 {
