@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace BridgeUI.Driod.Helpers
 {
-    [ContentProvider(new string[] { BridgeUI.Driod.Helpers.CachedFileProvider.AUTHORITY })]
+    [ContentProvider(new string[] { BridgeUI.Driod.Helpers.CachedFileProvider.AUTHORITY }, GrantUriPermissions = true)]
     public class CachedFileProvider : ContentProvider
     {
         Context context = Android.App.Application.Context;
@@ -37,7 +37,7 @@ namespace BridgeUI.Driod.Helpers
         public override bool OnCreate()
         {
             _uriMatcher = new UriMatcher(UriMatcher.NoMatch);
-            _uriMatcher.AddURI(AUTHORITY, "*", 1);
+            _uriMatcher.AddURI(AUTHORITY, BASE_PATH + "/*", 1);
             return true;
         }
 
@@ -52,7 +52,7 @@ namespace BridgeUI.Driod.Helpers
                     var file = new Java.IO.File(System.IO.Path.Combine(context.CacheDir.Path, uri.LastPathSegment));
                     if (file.Exists())
                     {
-                        cursor = new MatrixCursor(new string[] { OpenableColumns.DisplayName, OpenableColumns.Size});
+                        cursor = new MatrixCursor(new string[] { OpenableColumns.DisplayName, OpenableColumns.Size });
                         var list = new Java.Util.ArrayList(2);
                         list.Add(uri.LastPathSegment);
                         list.Add(file.Length());
@@ -64,7 +64,7 @@ namespace BridgeUI.Driod.Helpers
                     return null;
             }
         }
-        
+
 
         public override int Update(Android.Net.Uri uri, ContentValues values, string selection, string[] selectionArgs)
         {

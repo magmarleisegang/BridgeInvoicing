@@ -1,9 +1,12 @@
-﻿using Android.App;
+﻿using System;
+using Android.App;
 using Android.Content;
 using BridgeInvoicing;
 using BridgeUI.Driod;
 using BridgeUI.Driod.Helpers;
 using Xamarin.Forms;
+using System.Collections.Generic;
+using Android.Content.PM;
 
 [assembly: Dependency(typeof(EmailSender))]
 namespace BridgeUI.Driod
@@ -12,23 +15,21 @@ namespace BridgeUI.Driod
     {
         public void SendEmail(string toAddress, string subject, string body, string attachmentFileName)
         {
-            var email = new Intent(Android.Content.Intent.ActionSend);
-            email.PutExtra(Intent.ExtraEmail, new string[] { toAddress });
-            email.PutExtra(Intent.ExtraSubject, subject);
-            email.PutExtra(Intent.ExtraText, body);
+            var emailIntent = new Intent(Android.Content.Intent.ActionSend);
+            emailIntent.SetFlags(ActivityFlags.NewTask);
+            emailIntent.AddFlags(ActivityFlags.GrantReadUriPermission);
+            emailIntent.PutExtra(Intent.ExtraEmail, new string[] { toAddress });
+            emailIntent.PutExtra(Intent.ExtraSubject, subject);
+            emailIntent.PutExtra(Intent.ExtraText, body);
             if (!string.IsNullOrEmpty(attachmentFileName))
-            {
-                email.PutExtra(Intent.ExtraStream, Android.Net.Uri.Parse("content://" + CachedFileProvider.AUTHORITY + "/" + attachmentFileName));
-
-                //File fileIn = new File(attachmentFileName);
-                //fileIn.SetReadable(true, false);
-                //email.PutExtra(Intent.ExtraStream, Android.Net.Uri.FromFile(fileIn));
-                //fileIn.DeleteOnExit();
+            {               
+                var attachementUri = Android.Net.Uri.Parse(CachedFileProvider.CONTENT_URI + "/" + attachmentFileName);
+                
+                emailIntent.PutExtra(Intent.ExtraStream, attachementUri);
+                emailIntent.SetType("text/html");
             }
-            email.SetType("text/html");
-            email.SetFlags(ActivityFlags.NewTask);
-            ((Activity)Forms.Context).StartActivityForResult(email, 0);
-            //Android.App.Application.Context.StartActivityWithResult(email);           
+
+            ((Activity)Forms.Context).StartActivityForResult(emailIntent, 0);
         }
     }
 }

@@ -1,8 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="BridgeUI.Droid.BridgeUI.Droid" android:versionCode="1" android:versionName="1.0" android:installLocation="auto">
-	<uses-sdk android:minSdkVersion="23" />
+	<uses-sdk android:minSdkVersion="23" android:targetSdkVersion="23" />
 	<application android:label="BridgeUI.Droid"></application>
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
-	<provider android:name="CachedFileProvider" android:authorities="com.bridgeinvoice.attachprovider"></provider>
+	<provider android:name="CachedFileProvider" 
+            android:authorities="com.bridgeinvoice.attachprovider" 
+            android:grantUriPermissions="true"
+            android:exported="false">
+  </provider>
 </manifest>
