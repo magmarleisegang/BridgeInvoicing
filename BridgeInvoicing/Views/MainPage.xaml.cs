@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BridgeInvoicing.Helpers;
+using System;
 using Xamarin.Forms;
 using appSettings = BridgeInvoicing.Helpers.Settings;
 
@@ -25,8 +26,8 @@ namespace BridgeInvoicing.Views
 
         private void ClearTempInvoiceFolder()
         {
-            var fileWriter = DependencyService.Get<IFileHelper>();
-            fileWriter.ClearFolder(appSettings.TempInvoiceFolder);
+            var fileWriter = DependencyService.Get<IInvoiceFileHelper>();
+            fileWriter.ClearInvoiceAttachmentFolder(appSettings.TempInvoiceFolder);
         }
     }
 }

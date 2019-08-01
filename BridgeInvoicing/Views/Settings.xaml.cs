@@ -16,36 +16,49 @@ namespace BridgeInvoicing.Views
         public Settings()
         {
             InitializeComponent();
-            BindingContext = new SettingsViewModel();
+            var settings = new SettingsViewModel();
+            var fileWriter = DependencyService.Get<IInvoiceFileHelper>();
+            settings.InvoiceTemplateExists = fileWriter.InvoiceTemplateFileExists(settings.InvoiceTemplateFileName);
+            BindingContext = settings;
         }
 
         async void OnUpload(object sender, EventArgs e)
         {
 
             System.Diagnostics.Debug.WriteLine("file picked");
+            var permissions = DependencyService.Get<IPermissionChecker>();
+            permissions.FileAccessPermission();
             FileData filedata = await CrossFilePicker.Current.PickFile();
             // the dataarray of the file will be found in filedata.DataArray 
             // file name will be found in filedata.FileName;
             //etc etc.
             if (filedata != null)
             {
-                var fileWriter = DependencyService.Get<IFileHelper>();
+                var fileWriter = DependencyService.Get<IInvoiceFileHelper>();
                 if (filedata.DataArray.Length < 1)
                 {
                     this.LogicErrorAlert("Could not access template file");
                     return;
                 }
-                fileWriter.WriteFile(filedata.DataArray, AppSettings.InvoiceTemplateFile);
-                if (!fileWriter.FileExists(AppSettings.InvoiceTemplateFile))
+                fileWriter.WriteTemplateFile(filedata.DataArray, AppSettings.InvoiceTemplateFile);
+                if (!fileWriter.InvoiceTemplateFileExists(AppSettings.InvoiceTemplateFile))
                 {
                     this.LogicErrorAlert("Failed to save invoice template");
                 }
+                else
+                {
+                    ((SettingsViewModel)BindingContext).InvoiceTemplateExists = true;
+                }
+            }
+            else
+            {
+                this.LogicErrorAlert("Could not access template file (Please check your permissions)");
             }
         }
 
         private void DefaultRate_Completed(object sender, EventArgs e)
         {
-            
+
         }
     }
 }

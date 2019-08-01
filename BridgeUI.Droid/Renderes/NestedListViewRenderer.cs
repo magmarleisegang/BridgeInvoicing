@@ -19,6 +19,10 @@ namespace BridgeUI.Driod.Renderes
 {
     public class NestedListViewRenderer : ListViewRenderer
     {
+        public NestedListViewRenderer(Context context) : base(context)
+        {
+        }
+
         protected override void OnElementChanged(ElementChangedEventArgs<Xamarin.Forms.ListView> e)
         {
             base.OnElementChanged(e);
@@ -26,7 +30,7 @@ namespace BridgeUI.Driod.Renderes
             if (e.NewElement != null)
             {
                 var listView = this.Control as Android.Widget.ListView;
-                listView.NestedScrollingEnabled = true;
+                //listView.NestedScrollingEnabled = true;
             }
         }
     }

@@ -1,6 +1,6 @@
-﻿using System;
+﻿using BridgeInvoicing.Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using BridgeInvoicing.Domain;
+using System;
 using System.Threading.Tasks;
 
 namespace BridgeInvoicing.Tests

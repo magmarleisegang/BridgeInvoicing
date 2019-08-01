@@ -7,6 +7,7 @@ using Xamarin.Forms;
 using System.Linq;
 using appSettings = BridgeInvoicing.Helpers.Settings;
 using BridgeInvoicing.Helpers;
+using BridgeInvoicing.Emails;
 
 namespace BridgeInvoicing.Views
 {
@@ -44,8 +45,8 @@ namespace BridgeInvoicing.Views
                 return;
             }
 
-            var fileWriter = DependencyService.Get<IFileHelper>();
-            if (!fileWriter.FileExists(appSettings.InvoiceTemplateFile))
+            var fileWriter = DependencyService.Get<IInvoiceFileHelper>();
+            if (!fileWriter.InvoiceTemplateFileExists(appSettings.InvoiceTemplateFile))
             {
                 this.LogicErrorAlert("No invoice template available");
                 return;
@@ -60,11 +61,11 @@ namespace BridgeInvoicing.Views
                 invoiceEmail
                         .To(student)
                         .Sessions(list)
-                        .LoadTemplate(fileWriter.GetFile(appSettings.InvoiceTemplateFile));
+                        .LoadTemplate(fileWriter.GetTemplateFile(appSettings.InvoiceTemplateFile));
 
                 var emailSender = DependencyService.Get<IEmailSender>();
                 var filename = invoiceEmail.InvoiceNumber + ".html";
-                var attachmentFileName = fileWriter.CreateTempFile(invoiceEmail.InvoiceNumber + ".html", invoiceEmail.BuildHtml());
+                var attachmentFileName = fileWriter.CreateTempInvoiceAttachment(invoiceEmail.InvoiceNumber + ".html", invoiceEmail.BuildHtml());
                 emailSender.SendEmail(student.Email, invoiceEmail.InvoiceNumber, appSettings.DefaultInvoiceMessage, filename);
             }
             catch (Exception ex)

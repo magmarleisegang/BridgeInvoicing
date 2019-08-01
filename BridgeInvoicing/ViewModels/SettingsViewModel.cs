@@ -1,5 +1,6 @@
 ﻿using Xamarin.Forms;
 using AppSettings = BridgeInvoicing.Helpers.Settings;
+using System.IO;
 
 namespace BridgeInvoicing.ViewModels
 {
@@ -36,6 +37,19 @@ namespace BridgeInvoicing.ViewModels
                     AppSettings.DefaultInvoiceMessage = value;
                 }
             }
+        }
+        public bool InvoiceTemplateExists
+        {
+            get; set;
+        }
+
+        public string InvoiceTemplateExistsDisplay {
+            get { return InvoiceTemplateExists ? "Yes" : "No"; }
+        }
+
+        public string InvoiceTemplateFileName
+        {
+            get { return AppSettings.InvoiceTemplateFile; }
         }
     }
 }

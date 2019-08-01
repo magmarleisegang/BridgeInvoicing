@@ -6,7 +6,11 @@
     <ContentPage.Content>
         <StackLayout Padding="5">
             <Button x:Name="UploadInvoiceTemplate" Text="Choose invoice Template" Clicked="OnUpload" />
-            
+            <Label Text="Invoice template" 
+                   Font="Large"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Start"/>
+            <Label Text="{Binding InvoiceTemplateExistsDisplay}"/>
             <Label Text="Default Rate"
                     Font="Large"
                     HorizontalOptions="Start"

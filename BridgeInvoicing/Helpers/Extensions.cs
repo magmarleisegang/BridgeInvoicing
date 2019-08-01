@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace BridgeInvoicing.Helpers
 {
-internal static class Extensions
+    internal static class Extensions
     {
-       public static bool CheckNullString(this string valueToCheck)
+        public static bool CheckNullString(this string valueToCheck)
         {
             return !string.IsNullOrEmpty(valueToCheck);
         }
