@@ -25,7 +25,8 @@ namespace BridgeInvoicing.Data
 
         public Task<List<Student>> SearchStudent(string name)
         {
-            var list = _database.Table<Student>().Where(s => s.Name.Contains(name));
+            var lowerName = name.ToLower();
+            var list = _database.Table<Student>().Where(s => s.Name.ToLower().Contains(lowerName));
             return list.ToListAsync();
         }
 
@@ -44,7 +45,7 @@ namespace BridgeInvoicing.Data
         public async Task<List<ViewModels.Horse>> SearchHorseName(string name)
         {
             var results = await _database.QueryAsync<ViewModels.Horse>(
-                "select DISTINCT Horse as [Name] from [Session] where Horse like '%' || @name || '%' ORDER BY [Name]", name);
+                "select DISTINCT Horse as [Name] from [Session] where Horse like '%' || @name || '%' COLLATE NOCASE ORDER BY [Name]", name);
             return results;
         }
 
