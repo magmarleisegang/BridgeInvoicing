@@ -4,7 +4,7 @@
              x:Class="BridgeInvoicing.Views.Settings"
              xmlns:local="clr-namespace:BridgeInvoicing.Helpers;assembly=BridgeInvoicing">
     <ContentPage.Content>
-        <StackLayout Padding="5">
+        <StackLayout Padding="10,5,10,5">
             <Button x:Name="UploadInvoiceTemplate" Text="Choose invoice Template" Clicked="OnUpload" />
             <Label Text="Invoice template" 
                    Font="Large"

@@ -4,61 +4,61 @@
              xmlns:control="clr-namespace:BridgeInvoicing.Controls"
              x:Class="BridgeInvoicing.Views.AddSession2"
              xmlns:local="clr-namespace:BridgeInvoicing.Helpers;assembly=BridgeInvoicing">
-    <ScrollView>
-        <StackLayout>
-            <control:StudentPicker 
-                x:Name="StudentOptions" 
-                OnSelected="OnStudentSelected" />
-            <Label Text="Student Email"
-                    Font="Large"
-                    HorizontalOptions="Center"
-                    VerticalOptions="CenterAndExpand" />
-            <Entry Text="{Binding Student.Email}" />
-            <Label Text="Student Phone"
-                   Font="Large"
-                   HorizontalOptions="Center"
-                   VerticalOptions="CenterAndExpand" />
-            <Entry Text="{Binding Student.Phone}" 
-                   Keyboard="Numeric"/>
-            <control:HorsePicker x:Name="HorseOptions" OnSelected="OnHorseSelected"/>
-            <StackLayout Orientation="Horizontal">
-                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
-                    <Label Text="Date"
-                           Font="Large"
-                           HorizontalOptions="Center"
-                           VerticalOptions="CenterAndExpand" />
-                    <DatePicker x:Name="Date" 
-                                Format="yyyy-MM-dd" 
-                                HorizontalOptions="CenterAndExpand" 
-                                Date="{Binding Date}"/>
-                </StackLayout>
-                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
-                    <Label Text="Time"
-                           Font="Large"
-                           HorizontalOptions="Center"
-                           VerticalOptions="CenterAndExpand" />
-                    <TimePicker x:Name="Time" 
-                                Format="HH:mm" 
-                                HorizontalOptions="CenterAndExpand"
-                                Time="{Binding Time}"/>
-                </StackLayout>
-            </StackLayout>
-            <Label Text="Charge"
-                   Font="Large"
-                   HorizontalOptions="Center"
-                   VerticalOptions="CenterAndExpand" />
-            <Entry x:Name="Charge" 
-                   Text="{Binding Charge, Converter={local:DecimalConverter}}"
-                   Keyboard="Numeric"/>
-            <Label Text="Comment"
-                   Font="Large"
-                   HorizontalOptions="Center"
-                   VerticalOptions="CenterAndExpand" />
-            <Entry x:Name="Comment" Text="{Binding Comment}"/>
-            <Button Text="AddSession"
-                    HorizontalOptions="Center"
-                    VerticalOptions="CenterAndExpand" 
-                    Clicked="OnAddSessionClicked"/>
+  <ScrollView>
+    <StackLayout Padding="10,5,10,5">
+      <control:StudentPicker
+          x:Name="StudentOptions"
+          OnSelected="OnStudentSelected" />
+      <Label Text="Student Email"
+              Font="Large"
+              HorizontalOptions="Center"
+              VerticalOptions="CenterAndExpand" />
+      <Entry Text="{Binding Student.Email}" />
+      <Label Text="Student Phone"
+             Font="Large"
+             HorizontalOptions="Center"
+             VerticalOptions="CenterAndExpand" />
+      <Entry Text="{Binding Student.Phone}"
+             Keyboard="Numeric"/>
+      <control:HorsePicker x:Name="HorseOptions" OnSelected="OnHorseSelected"/>
+      <StackLayout Orientation="Horizontal">
+        <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+          <Label Text="Date"
+                 Font="Large"
+                 HorizontalOptions="Center"
+                 VerticalOptions="CenterAndExpand" />
+          <DatePicker x:Name="Date"
+                      Format="yyyy-MM-dd"
+                      HorizontalOptions="CenterAndExpand"
+                      Date="{Binding Date}"/>
         </StackLayout>
-    </ScrollView>
+        <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+          <Label Text="Time"
+                 Font="Large"
+                 HorizontalOptions="Center"
+                 VerticalOptions="CenterAndExpand" />
+          <TimePicker x:Name="Time"
+                      Format="HH:mm"
+                      HorizontalOptions="CenterAndExpand"
+                      Time="{Binding Time}"/>
+        </StackLayout>
+      </StackLayout>
+      <Label Text="Charge"
+             Font="Large"
+             HorizontalOptions="Center"
+             VerticalOptions="CenterAndExpand" />
+      <Entry x:Name="Charge"
+             Text="{Binding Charge, Converter={local:DecimalConverter}}"
+             Keyboard="Numeric"/>
+      <Label Text="Comment"
+             Font="Large"
+             HorizontalOptions="Center"
+             VerticalOptions="CenterAndExpand" />
+      <Entry x:Name="Comment" Text="{Binding Comment}"/>
+      <Button Text="Add Session"
+              HorizontalOptions="Center"
+              VerticalOptions="CenterAndExpand"
+              Clicked="OnAddSessionClicked"/>
+    </StackLayout>
+  </ScrollView>
 </ContentPage>

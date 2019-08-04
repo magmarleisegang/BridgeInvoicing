@@ -5,7 +5,7 @@
              x:Class="BridgeInvoicing.Views.ListSessions"
              xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <ScrollView x:Name="MainScroll">
-        <StackLayout Padding="5">
+        <StackLayout Padding="10,5,10,5">
             <control:StudentPicker x:Name="StudentFilter" ShowLabel="False" Padding="0,10,0,0"/>
             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                 <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
