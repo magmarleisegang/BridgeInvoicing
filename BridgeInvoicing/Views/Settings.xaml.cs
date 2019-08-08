@@ -28,7 +28,15 @@ namespace BridgeInvoicing.Views
             System.Diagnostics.Debug.WriteLine("file picked");
             var permissions = DependencyService.Get<IPermissionChecker>();
             permissions.FileAccessPermission();
-            FileData filedata = await CrossFilePicker.Current.PickFile();
+            FileData filedata = null;
+            try
+            {
+                filedata = await CrossFilePicker.Current.PickFile();
+            }
+            catch (Exception ex)
+            {
+                //what's going on here?
+            }
             // the dataarray of the file will be found in filedata.DataArray 
             // file name will be found in filedata.FileName;
             //etc etc.
